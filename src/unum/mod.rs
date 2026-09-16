@@ -8,8 +8,7 @@ use core::{
         Mul,
         MulAssign,
         Div,
-        DivAssign,
-        Neg
+        DivAssign
     }
 };
 
@@ -46,12 +45,3 @@ where
 {
 }
 
-// ── `Inum` Definition ───────────────────────────────────────────────────────
-pub trait Inum: Unum + Neg {}
-
-// ── `Inum<T>` Implementation ────────────────────────────────────────────────
-impl<T> Inum for T
-where
-    T: Unum + Neg
-{
-}
