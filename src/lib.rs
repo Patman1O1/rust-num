@@ -1,3 +1,3 @@
-pub mod traits;
+// ── Modules ─────────────────────────────────────────────────────────────────
 pub mod rational;
-
+pub mod traits;
