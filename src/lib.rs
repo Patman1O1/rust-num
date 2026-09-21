@@ -1,3 +1,3 @@
-pub mod unum;
-pub mod inum;
-pub mod frac;
+pub mod traits;
+pub mod rational;
+
