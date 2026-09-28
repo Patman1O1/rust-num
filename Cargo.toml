@@ -1,5 +1,5 @@
 [package]
-name = "rust-num"
+name = "num"
 version = "0.1.0"
 authors = ["Patman1O1"]
 edition = "2024"
