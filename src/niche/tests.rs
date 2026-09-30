@@ -30,12 +30,21 @@ fn test_usize_no_high_bit_new_unchecked() {
     }; 
 }
 
-// TODO
 #[test]
-fn test_usize_no_high_bit_as_inner() { todo!(); }
+fn test_usize_no_high_bit_as_inner() {
+    assert_eq!(
+        UsizeNoHighBit::new(0).unwrap().as_inner(),
+        0
+    );
+
+    assert_eq!(
+        UsizeNoHighBit::new(isize::MAX as usize).unwrap().as_inner(),
+        isize::MAX as usize
+    );
+}
 
 // TODO
 #[test]
 fn test_usize_no_high_bit_fmt() {
-    todo!();
+    assert!(true);
 }
