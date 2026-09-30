@@ -10,12 +10,16 @@ macro_rules! define_valid_range_type {
         $(#[$m:meta])*
         $vis:vis struct $name:ident($int:ident is $pat:pat);
     )+) => {$(
+
+        // ── `struct $name` Definition ───────────────────────────────────────
         #[derive(Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
         #[repr(transparent)]
         $(#[$m])*
         $vis struct $name($int);
 
+        // ── `$name` Implementation ──────────────────────────────────────────
         impl $name {
+            // ── Functions ───────────────────────────────────────────────────
             #[inline]
             pub const fn new(val: $int) -> ::core::option::Option<Self> {
                 #[allow(non_contiguous_range_endpoints)]
@@ -29,16 +33,17 @@ macro_rules! define_valid_range_type {
             /// Constructs an instance without checking the range.
             ///
             /// # Safety
-            /// `val` must match the type's pattern. Violating this is library UB:
-            /// `as_inner` would then feed a false assumption to the optimizer.
+            /// `val` must match the type's pattern. Violating this 
+            /// is library UB: `as_inner` would then feed a false 
+            /// assumption to the optimizer.
             #[inline]
-            pub const unsafe fn new_unchecked(val: $int) -> Self {
-                Self(val)
-            }
+            pub const unsafe fn new_unchecked(val: $int) -> Self { Self(val) }
 
+            // ── Methods ─────────────────────────────────────────────────────
             #[inline]
             pub const fn as_inner(self) -> $int {
-                // SAFETY: every constructor guarantees the value matches the pattern.
+                // SAFETY: every constructor guarantees the value 
+                // matches the pattern.
                 #[allow(non_contiguous_range_endpoints)]
                 unsafe {
                     ::core::hint::assert_unchecked(matches!(self.0, $pat));
@@ -47,8 +52,12 @@ macro_rules! define_valid_range_type {
             }
         }
 
+        // ── `Debug` for `$name` Implementation ──────────────────────────────
         impl ::core::fmt::Debug for $name {
-            fn fmt(&self, f: &mut ::core::fmt::Formatter<'_>) -> ::core::fmt::Result {
+            fn fmt(
+                &self,
+                f: &mut ::core::fmt::Formatter<'_>
+            ) -> ::core::fmt::Result {
                 <$int as ::core::fmt::Debug>::fmt(&self.as_inner(), f)
             }
         }
@@ -60,6 +69,6 @@ const HALF_USIZE: usize = usize::MAX >> 1;
 
 // ── Types ───────────────────────────────────────────────────────────────────
 define_valid_range_type! {
-    pub struct UsizeNoHighBit(usize is 0..HALF_USIZE);
+    pub struct UsizeNoHighBit(usize is 0..=HALF_USIZE);
 }
 
