@@ -29,14 +29,10 @@ pub trait Num:
     + DivAssign
     + RemAssign
 {
-    // ── Types ───────────────────────────────────────────────────────────────
-    type FromStrRadixErr;
+    // ── Constants ───────────────────────────────────────────────────────────
+    const MIN: Self;
 
-    // ── Functions ───────────────────────────────────────────────────────────
-    fn from_str_radix(
-        str: &str,
-        radix: u32,
-    ) -> Result<Self, Self::FromStrRadixErr>;
+    const MAX: Self;
 }
 
 // ── `Num` Implementations ───────────────────────────────────────────────────
