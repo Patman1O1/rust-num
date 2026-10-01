@@ -14,6 +14,10 @@ use core::{
     }
 };
 
+use super::{
+    num_ops::NumOps
+};
+
 // ── Macros ──────────────────────────────────────────────────────────────────
 macro_rules! impl_num {
     ($($t:ty),* $(,)?) => {$(
@@ -29,17 +33,7 @@ macro_rules! impl_num {
 pub trait Num:
     Sized
     + PartialEq
-    + Add<Output = Self>
-    + Sub<Output = Self>
-    + Mul<Output = Self>
-    + Div<Output = Self>
-    + Rem<Output = Self>
-    + AddAssign
-    + SubAssign
-    + MulAssign
-    + DivAssign
-    + RemAssign
-{
+    + NumOps {
     // ── Constants ───────────────────────────────────────────────────────────
     const MIN: Self;
 
