@@ -38,3 +38,5 @@ pub trait Num:
         radix: u32,
     ) -> Result<Self, Self::FromStrRadixErr>;
 }
+
+// ── `Num` Implementations ───────────────────────────────────────────────────
