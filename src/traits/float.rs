@@ -1,5 +1,6 @@
 // ── Aliases ─────────────────────────────────────────────────────────────────
 use core::{
+    f64,
     mem,
     num::FpCategory,
     ops::Neg
@@ -20,7 +21,7 @@ macro_rules! impl_float {
 
             const EPSILON: Self = <$t>::EPSILON;
 
-            const RADIANS_PER_DEGREE: Self = core::f64::consts::PI as $t / 180.0;
+            const RADIANS_PER_DEGREE: Self = f64::consts::PI as $t / 180.0;
 
             // ── Functions ───────────────────────────────────────────────────
             #[inline]
