@@ -14,6 +14,17 @@ use core::{
     }
 };
 
+// ── Macros ──────────────────────────────────────────────────────────────────
+macro_rules! impl_num {
+    ($($t:ty),* $(,)?) => {$(
+        impl Num for $t {
+            const MIN: Self = <$t>::MIN;
+
+            const MAX: Self = <$t>::MAX;
+        }
+    )*};
+}
+
 // ── `trait Num` Definition ──────────────────────────────────────────────────
 pub trait Num:
     Sized
@@ -36,3 +47,19 @@ pub trait Num:
 }
 
 // ── `Num` Implementations ───────────────────────────────────────────────────
+impl_num!(
+    i8,
+    i16,
+    i32,
+    i64,
+    i128,
+    isize,
+    u8,
+    u16,
+    u32,
+    u64,
+    u128,
+    usize,
+    f32,
+    f64
+);
