@@ -29,4 +29,12 @@ pub trait Num:
     + DivAssign
     + RemAssign
 {
+    // ── Types ───────────────────────────────────────────────────────────────
+    type FromStrRadixErr;
+
+    // ── Functions ───────────────────────────────────────────────────────────
+    fn from_str_radix(
+        str: &str,
+        radix: u32,
+    ) -> Result<Self, Self::FromStrRadixErr>;
 }
