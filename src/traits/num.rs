@@ -1,19 +1,4 @@
 // ── Aliases ─────────────────────────────────────────────────────────────────
-use core::{
-    ops::{
-        Add,
-        AddAssign,
-        Div,
-        DivAssign,
-        Mul,
-        MulAssign,
-        Rem,
-        RemAssign,
-        Sub,
-        SubAssign
-    }
-};
-
 use super::{
     num_ops::NumOps
 };
