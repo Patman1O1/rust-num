@@ -1,11 +1,16 @@
 // ── Aliases ─────────────────────────────────────────────────────────────────
 extern crate std;
 
-use core::cmp::Ordering;
-use core::hash::BuildHasher;
-use core::mem::{align_of, size_of};
-use std::format;
-use std::hash::RandomState;
+use core::{
+    cmp::Ordering,
+    hash::BuildHasher,
+    mem::{align_of, size_of}
+};
+
+use std::{
+    format,
+    hash::RandomState
+};
 
 use super::{
     HALF_USIZE,
