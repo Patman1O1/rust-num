@@ -1,3 +1,3 @@
 // ── Modules ─────────────────────────────────────────────────────────────────
-pub mod rational;
+pub mod niche;
 pub mod traits;
