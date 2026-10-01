@@ -1,5 +1,6 @@
 // ── Aliases ─────────────────────────────────────────────────────────────────
 use core::{
+    mem,
     num::FpCategory,
     ops::Neg
 };
@@ -93,14 +94,20 @@ macro_rules! impl_float {
             fn abs_sub(self, other: Self) -> Self {
                 // `<$t>::abs_sub` is deprecated; this matches its semantics
                 // (positive difference, NaN propagates).
-                if self <= other { 0.0 } else { self - other }
+                if self <= other {
+                    0.0
+                } else {
+                    self - other
+                }
             }
 
             #[inline]
             fn signum(self) -> Self { <$t>::signum(self) }
 
             #[inline]
-            fn copysign(self, sign: Self) -> Self { <$t>::copysign(self, sign) }
+            fn copysign(self, sign: Self) -> Self {
+                <$t>::copysign(self, sign)
+            }
 
             #[inline]
             fn max(self, other: Self) -> Self { <$t>::max(self, other) }
@@ -109,10 +116,14 @@ macro_rules! impl_float {
             fn min(self, other: Self) -> Self { <$t>::min(self, other) }
 
             #[inline]
-            fn clamp(self, min: Self, max: Self) -> Self { <$t>::clamp(self, min, max) }
+            fn clamp(self, min: Self, max: Self) -> Self {
+                <$t>::clamp(self, min, max)
+            }
 
             #[inline]
-            fn mul_add(self, a: Self, b: Self) -> Self { <$t>::mul_add(self, a, b) }
+            fn mul_add(self, a: Self, b: Self) -> Self {
+                <$t>::mul_add(self, a, b)
+            }
 
             #[inline]
             fn recip(self) -> Self { <$t>::recip(self) }
@@ -204,7 +215,7 @@ macro_rules! impl_float {
             #[inline] fn atanh(self) -> Self { <$t>::atanh(self) }
 
             fn integer_decode(self) -> (u64, i16, i8) {
-                const TOTAL_BITS: u32 = (core::mem::size_of::<$t>() * 8) as u32;
+                const TOTAL_BITS: u32 = (mem::size_of::<$t>() * 8) as u32;
                 const MAN_BITS: u32 = <$t>::MANTISSA_DIGITS - 1;
                 const EXP_BITS: u32 = TOTAL_BITS - 1 - MAN_BITS;
                 const BIAS: i16 = (<$t>::MAX_EXP - 1) as i16;
