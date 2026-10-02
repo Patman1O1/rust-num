@@ -16,12 +16,8 @@ use core::{
 
 // ── Macros ──────────────────────────────────────────────────────────────────
 macro_rules! impl_num {
-    ($($t:ty),* $(,)?) => {$(
-        impl Num for $t {
-            const MIN: Self = <$t>::MIN;
-
-            const MAX: Self = <$t>::MAX;
-        }
+    ($($T:ty),* $(,)?) => {$(
+        impl Num for $T {}
     )*};
 }
 
@@ -38,13 +34,7 @@ pub trait Num:
     + Div<Output = Self>
     + DivAssign
     + Rem<Output = Self>
-    + RemAssign
- {
-    // ── Constants ───────────────────────────────────────────────────────────
-    const MIN: Self;
-
-    const MAX: Self;
-}
+    + RemAssign {}
 
 // ── `Num` Implementations ───────────────────────────────────────────────────
 impl_num!(
