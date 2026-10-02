@@ -17,7 +17,7 @@ use core::{
 };
 
 use super::{
-    num::Num
+    real::Real
 };
 
 // ── Macros ──────────────────────────────────────────────────────────────────
@@ -461,7 +461,7 @@ macro_rules! impl_int {
 
 // ── `trait Int` Definition ──────────────────────────────────────────────────
 pub trait Int:
-    Sized
+    Real
     + Copy
     + Eq
     + Ord
@@ -476,8 +476,7 @@ pub trait Int:
     + Shl
     + ShlAssign
     + Shr
-    + ShrAssign 
-    + Num {
+    + ShrAssign {
     // ── Types ───────────────────────────────────────────────────────────────
     type Bytes: Copy + Default + AsRef<[u8]> + AsMut<[u8]>;
 
