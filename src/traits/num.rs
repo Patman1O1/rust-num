@@ -1,6 +1,17 @@
 // ── Aliases ─────────────────────────────────────────────────────────────────
-use super::{
-    num_ops::NumOps
+use core::{
+    ops::{
+        Add,
+        AddAssign,
+        Div,
+        DivAssign,
+        Mul,
+        MulAssign,
+        Rem,
+        RemAssign,
+        Sub,
+        SubAssign
+    }
 };
 
 // ── Macros ──────────────────────────────────────────────────────────────────
@@ -18,7 +29,17 @@ macro_rules! impl_num {
 pub trait Num:
     Sized
     + PartialEq
-    + NumOps {
+    + Add<Output = Self>
+    + AddAssign
+    + Sub<Output = Self>
+    + SubAssign
+    + Mul<Output = Self>
+    + MulAssign
+    + Div<Output = Self>
+    + DivAssign
+    + Rem<Output = Self>
+    + RemAssign
+ {
     // ── Constants ───────────────────────────────────────────────────────────
     const MIN: Self;
 
