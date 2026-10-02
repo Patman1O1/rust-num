@@ -1,10 +1,23 @@
 // ── Aliases ─────────────────────────────────────────────────────────────────
 use core::{
-    num::ParseIntError
+    num::ParseIntError,
+    ops::{
+        BitAnd,
+        BitAndAssign,
+        BitOr,
+        BitOrAssign,
+        BitXor,
+        BitXorAssign,
+        Not,
+        Shl,
+        ShlAssign,
+        Shr,
+        ShrAssign
+    }
 };
 
 use super::{
-    int_ops::IntOps
+    num::Num
 };
 
 // ── Macros ──────────────────────────────────────────────────────────────────
@@ -457,7 +470,18 @@ pub trait Int:
     + Eq
     + Ord
     + PartialOrd
-    + IntOps {
+    + BitAnd
+    + BitAndAssign
+    + BitOr
+    + BitOrAssign
+    + BitXor
+    + BitXorAssign
+    + Not
+    + Shl
+    + ShlAssign
+    + Shr
+    + ShrAssign 
+    + Num {
     // ── Types ───────────────────────────────────────────────────────────────
     type Bytes: Copy + Default + AsRef<[u8]> + AsMut<[u8]>;
 
