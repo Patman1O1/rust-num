@@ -29,10 +29,6 @@ macro_rules! impl_int {
             type Bytes = [u8; core::mem::size_of::<$t>()];
 
             // ── Constants ───────────────────────────────────────────────────
-            const MIN: Self = <$t>::MIN;
-
-            const MAX: Self = <$t>::MAX;
-
             const BITS: u32 = <$t>::BITS;
 
             // ── Functions ───────────────────────────────────────────────────
@@ -486,10 +482,6 @@ pub trait Int:
     type Bytes: Copy + Default + AsRef<[u8]> + AsMut<[u8]>;
 
     // ── Constants ───────────────────────────────────────────────────────────
-    const MIN: Self;
-
-    const MAX: Self;
-
     const BITS: u32;
 
     // ── Functions ───────────────────────────────────────────────────────────
