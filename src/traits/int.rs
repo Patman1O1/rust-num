@@ -22,41 +22,41 @@ use super::{
 
 // ── Macros ──────────────────────────────────────────────────────────────────
 macro_rules! impl_int {
-    ($($t:ty),* $(,)?) => {$(
-        // ── `Int` for $t Implementations ────────────────────────────────────
-        impl Int for $t {
+    ($($T:ty),* $(,)?) => {$(
+        // ── `Int` for $T Implementations ────────────────────────────────────
+        impl Int for $T {
             // ── Types ───────────────────────────────────────────────────────
-            type Bytes = [u8; core::mem::size_of::<$t>()];
+            type Bytes = [u8; core::mem::size_of::<$T>()];
 
             // ── Constants ───────────────────────────────────────────────────
-            const BITS: u32 = <$t>::BITS;
+            const BITS: u32 = <$T>::BITS;
 
             // ── Functions ───────────────────────────────────────────────────
             #[inline]
-            fn min_value() -> Self { <$t>::MIN }
+            fn min_value() -> Self { <$T>::MIN }
 
             #[inline]
-            fn max_value() -> Self { <$t>::MAX }
+            fn max_value() -> Self { <$T>::MAX }
 
             #[inline]
-            fn from_be(x: Self) -> Self { <$t>::from_be(x) }
+            fn from_be(x: Self) -> Self { <$T>::from_be(x) }
 
             #[inline]
-            fn from_le(x: Self) -> Self { <$t>::from_le(x) }
+            fn from_le(x: Self) -> Self { <$T>::from_le(x) }
 
             #[inline]
             fn from_be_bytes(bytes: Self::Bytes) -> Self {
-                <$t>::from_be_bytes(bytes)
+                <$T>::from_be_bytes(bytes)
             }
 
             #[inline]
             fn from_le_bytes(bytes: Self::Bytes) -> Self {
-                <$t>::from_le_bytes(bytes)
+                <$T>::from_le_bytes(bytes)
             }
 
             #[inline]
             fn from_ne_bytes(bytes: Self::Bytes) -> Self {
-                <$t>::from_ne_bytes(bytes)
+                <$T>::from_ne_bytes(bytes)
             }
 
             #[inline]
@@ -64,396 +64,396 @@ macro_rules! impl_int {
                 src: &str,
                 radix: u32
             ) -> Result<Self, ParseIntError> {
-                <$t>::from_str_radix(src, radix)
+                <$T>::from_str_radix(src, radix)
             }
 
             // ── Methods ─────────────────────────────────────────────────────
             #[inline]
-            fn count_ones(self) -> u32 { <$t>::count_ones(self) }
+            fn count_ones(self) -> u32 { <$T>::count_ones(self) }
 
             #[inline]
-            fn count_zeros(self) -> u32 { <$t>::count_zeros(self) }
+            fn count_zeros(self) -> u32 { <$T>::count_zeros(self) }
 
             #[inline]
-            fn leading_ones(self) -> u32 { <$t>::leading_ones(self) }
+            fn leading_ones(self) -> u32 { <$T>::leading_ones(self) }
 
             #[inline]
-            fn leading_zeros(self) -> u32 { <$t>::leading_zeros(self) }
+            fn leading_zeros(self) -> u32 { <$T>::leading_zeros(self) }
 
             #[inline]
-            fn trailing_ones(self) -> u32 { <$t>::trailing_ones(self) }
+            fn trailing_ones(self) -> u32 { <$T>::trailing_ones(self) }
 
             #[inline]
-            fn trailing_zeros(self) -> u32 { <$t>::trailing_zeros(self) }
+            fn trailing_zeros(self) -> u32 { <$T>::trailing_zeros(self) }
 
             #[inline]
-            fn highest_one(self) -> Option<u32> { <$t>::highest_one(self) }
+            fn highest_one(self) -> Option<u32> { <$T>::highest_one(self) }
 
             #[inline]
-            fn lowest_one(self) -> Option<u32> { <$t>::lowest_one(self) }
+            fn lowest_one(self) -> Option<u32> { <$T>::lowest_one(self) }
 
             #[inline]
             fn isolate_highest_one(self) -> Self {
-                <$t>::isolate_highest_one(self)
+                <$T>::isolate_highest_one(self)
             }
 
             #[inline]
             fn isolate_lowest_one(self) -> Self {
-                <$t>::isolate_lowest_one(self)
+                <$T>::isolate_lowest_one(self)
             }
 
             #[inline]
-            fn reverse_bits(self) -> Self { <$t>::reverse_bits(self) }
+            fn reverse_bits(self) -> Self { <$T>::reverse_bits(self) }
 
             #[inline]
-            fn rotate_left(self, n: u32) -> Self { <$t>::rotate_left(self, n) }
+            fn rotate_left(self, n: u32) -> Self { <$T>::rotate_left(self, n) }
 
             #[inline]
             fn rotate_right(self, n: u32) -> Self {
-                <$t>::rotate_right(self, n)
+                <$T>::rotate_right(self, n)
             }
 
             #[inline]
-            fn swap_bytes(self) -> Self { <$t>::swap_bytes(self) }
+            fn swap_bytes(self) -> Self { <$T>::swap_bytes(self) }
 
             #[inline]
             fn unbounded_shl(self, rhs: u32) -> Self {
-                <$t>::unbounded_shl(self, rhs)
+                <$T>::unbounded_shl(self, rhs)
             }
 
             #[inline]
             fn unbounded_shr(self, rhs: u32) -> Self {
-                <$t>::unbounded_shr(self, rhs)
+                <$T>::unbounded_shr(self, rhs)
             }
 
             #[inline]
-            fn to_be(self) -> Self { <$t>::to_be(self) }
+            fn to_be(self) -> Self { <$T>::to_be(self) }
 
             #[inline]
-            fn to_le(self) -> Self { <$t>::to_le(self) }
+            fn to_le(self) -> Self { <$T>::to_le(self) }
 
             #[inline]
-            fn to_be_bytes(self) -> Self::Bytes { <$t>::to_be_bytes(self) }
+            fn to_be_bytes(self) -> Self::Bytes { <$T>::to_be_bytes(self) }
 
             #[inline]
-            fn to_le_bytes(self) -> Self::Bytes { <$t>::to_le_bytes(self) }
+            fn to_le_bytes(self) -> Self::Bytes { <$T>::to_le_bytes(self) }
 
             #[inline]
-            fn to_ne_bytes(self) -> Self::Bytes { <$t>::to_ne_bytes(self) }
+            fn to_ne_bytes(self) -> Self::Bytes { <$T>::to_ne_bytes(self) }
 
             #[inline]
-            fn pow(self, exp: u32) -> Self { <$t>::pow(self, exp) }
+            fn pow(self, exp: u32) -> Self { <$T>::pow(self, exp) }
 
             #[inline]
-            fn isqrt(self) -> Self { <$t>::isqrt(self) }
+            fn isqrt(self) -> Self { <$T>::isqrt(self) }
 
             #[inline]
-            fn ilog(self, base: Self) -> u32 { <$t>::ilog(self, base) }
+            fn ilog(self, base: Self) -> u32 { <$T>::ilog(self, base) }
 
             #[inline]
-            fn ilog2(self) -> u32 { <$t>::ilog2(self) }
+            fn ilog2(self) -> u32 { <$T>::ilog2(self) }
 
             #[inline]
-            fn ilog10(self) -> u32 { <$t>::ilog10(self) }
+            fn ilog10(self) -> u32 { <$T>::ilog10(self) }
 
             #[inline]
             fn div_euclid(self, rhs: Self) -> Self {
-                <$t>::div_euclid(self, rhs)
+                <$T>::div_euclid(self, rhs)
             }
 
             #[inline]
             fn rem_euclid(self, rhs: Self) -> Self {
-                <$t>::rem_euclid(self, rhs)
+                <$T>::rem_euclid(self, rhs)
             }
 
             #[inline]
-            fn midpoint(self, rhs: Self) -> Self { <$t>::midpoint(self, rhs) }
+            fn midpoint(self, rhs: Self) -> Self { <$T>::midpoint(self, rhs) }
 
             #[inline]
             fn checked_add(self, rhs: Self) -> Option<Self> {
-                <$t>::checked_add(self, rhs)
+                <$T>::checked_add(self, rhs)
             }
 
             #[inline]
             fn checked_sub(self, rhs: Self) -> Option<Self> {
-                <$t>::checked_sub(self, rhs)
+                <$T>::checked_sub(self, rhs)
             }
 
             #[inline]
             fn checked_mul(self, rhs: Self) -> Option<Self> {
-                <$t>::checked_mul(self, rhs)
+                <$T>::checked_mul(self, rhs)
             }
 
             #[inline]
             fn checked_div(self, rhs: Self) -> Option<Self> {
-                <$t>::checked_div(self, rhs)
+                <$T>::checked_div(self, rhs)
             }
 
             #[inline]
             fn checked_div_euclid(self, rhs: Self) -> Option<Self> {
-                <$t>::checked_div_euclid(self, rhs)
+                <$T>::checked_div_euclid(self, rhs)
             }
 
             #[inline]
             fn checked_rem(self, rhs: Self) -> Option<Self> {
-                <$t>::checked_rem(self, rhs)
+                <$T>::checked_rem(self, rhs)
             }
 
             #[inline]
             fn checked_rem_euclid(self, rhs: Self) -> Option<Self> {
-                <$t>::checked_rem_euclid(self, rhs)
+                <$T>::checked_rem_euclid(self, rhs)
             }
 
             #[inline]
-            fn checked_neg(self) -> Option<Self> { <$t>::checked_neg(self) }
+            fn checked_neg(self) -> Option<Self> { <$T>::checked_neg(self) }
 
             #[inline]
             fn checked_pow(self, exp: u32) -> Option<Self> {
-                <$t>::checked_pow(self, exp)
+                <$T>::checked_pow(self, exp)
             }
 
             #[inline]
             fn checked_shl(self, rhs: u32) -> Option<Self> {
-                <$t>::checked_shl(self, rhs)
+                <$T>::checked_shl(self, rhs)
             }
 
             #[inline]
             fn checked_shr(self, rhs: u32) -> Option<Self> {
-                <$t>::checked_shr(self, rhs)
+                <$T>::checked_shr(self, rhs)
             }
 
             #[inline]
             fn checked_ilog(self, base: Self) -> Option<u32> {
-                <$t>::checked_ilog(self, base)
+                <$T>::checked_ilog(self, base)
             }
 
             #[inline]
-            fn checked_ilog2(self) -> Option<u32> { <$t>::checked_ilog2(self) }
+            fn checked_ilog2(self) -> Option<u32> { <$T>::checked_ilog2(self) }
 
             #[inline]
             fn checked_ilog10(self) -> Option<u32> {
-                <$t>::checked_ilog10(self)
+                <$T>::checked_ilog10(self)
             }
 
             #[inline]
             fn overflowing_add(self, rhs: Self) -> (Self, bool) {
-                <$t>::overflowing_add(self, rhs)
+                <$T>::overflowing_add(self, rhs)
             }
 
             #[inline]
             fn overflowing_sub(self, rhs: Self) -> (Self, bool) {
-                <$t>::overflowing_sub(self, rhs)
+                <$T>::overflowing_sub(self, rhs)
             }
 
             #[inline]
             fn overflowing_mul(self, rhs: Self) -> (Self, bool) {
-                <$t>::overflowing_mul(self, rhs)
+                <$T>::overflowing_mul(self, rhs)
             }
 
             #[inline]
             fn overflowing_div(self, rhs: Self) -> (Self, bool) {
-                <$t>::overflowing_div(self, rhs)
+                <$T>::overflowing_div(self, rhs)
             }
 
             #[inline]
             fn overflowing_div_euclid(self, rhs: Self) -> (Self, bool) {
-                <$t>::overflowing_div_euclid(self, rhs)
+                <$T>::overflowing_div_euclid(self, rhs)
             }
 
             #[inline]
             fn overflowing_rem(self, rhs: Self) -> (Self, bool) {
-                <$t>::overflowing_rem(self, rhs)
+                <$T>::overflowing_rem(self, rhs)
             }
 
             #[inline]
             fn overflowing_rem_euclid(self, rhs: Self) -> (Self, bool) {
-                <$t>::overflowing_rem_euclid(self, rhs)
+                <$T>::overflowing_rem_euclid(self, rhs)
             }
 
             #[inline]
             fn overflowing_neg(self) -> (Self, bool) {
-                <$t>::overflowing_neg(self)
+                <$T>::overflowing_neg(self)
             }
 
             #[inline]
             fn overflowing_pow(self, exp: u32) -> (Self, bool) {
-                <$t>::overflowing_pow(self, exp)
+                <$T>::overflowing_pow(self, exp)
             }
 
             #[inline]
             fn overflowing_shl(self, rhs: u32) -> (Self, bool) {
-                <$t>::overflowing_shl(self, rhs)
+                <$T>::overflowing_shl(self, rhs)
             }
 
             #[inline]
             fn overflowing_shr(self, rhs: u32) -> (Self, bool) {
-                <$t>::overflowing_shr(self, rhs)
+                <$T>::overflowing_shr(self, rhs)
             }
 
             #[inline]
             fn saturating_add(self, rhs: Self) -> Self {
-                <$t>::saturating_add(self, rhs)
+                <$T>::saturating_add(self, rhs)
             }
 
             #[inline]
             fn saturating_sub(self, rhs: Self) -> Self {
-                <$t>::saturating_sub(self, rhs)
+                <$T>::saturating_sub(self, rhs)
             }
 
             #[inline]
             fn saturating_mul(self, rhs: Self) -> Self {
-                <$t>::saturating_mul(self, rhs)
+                <$T>::saturating_mul(self, rhs)
             }
 
             #[inline]
             fn saturating_div(self, rhs: Self) -> Self {
-                <$t>::saturating_div(self, rhs)
+                <$T>::saturating_div(self, rhs)
             }
 
             #[inline]
             fn saturating_pow(self, exp: u32) -> Self {
-                <$t>::saturating_pow(self, exp)
+                <$T>::saturating_pow(self, exp)
             }
 
             #[inline]
             fn strict_add(self, rhs: Self) -> Self {
-                <$t>::strict_add(self, rhs)
+                <$T>::strict_add(self, rhs)
             }
 
             #[inline]
             fn strict_sub(self, rhs: Self) -> Self {
-                <$t>::strict_sub(self, rhs)
+                <$T>::strict_sub(self, rhs)
             }
 
             #[inline]
             fn strict_mul(self, rhs: Self) -> Self {
-                <$t>::strict_mul(self, rhs)
+                <$T>::strict_mul(self, rhs)
             }
 
             #[inline]
             fn strict_div(self, rhs: Self) -> Self {
-                <$t>::strict_div(self, rhs)
+                <$T>::strict_div(self, rhs)
             }
 
             #[inline]
             fn strict_div_euclid(self, rhs: Self) -> Self {
-                <$t>::strict_div_euclid(self, rhs)
+                <$T>::strict_div_euclid(self, rhs)
             }
 
             #[inline]
             fn strict_rem(self, rhs: Self) -> Self {
-                <$t>::strict_rem(self, rhs)
+                <$T>::strict_rem(self, rhs)
             }
 
             #[inline]
             fn strict_rem_euclid(self, rhs: Self) -> Self {
-                <$t>::strict_rem_euclid(self, rhs)
+                <$T>::strict_rem_euclid(self, rhs)
             }
 
             #[inline]
-            fn strict_neg(self) -> Self { <$t>::strict_neg(self) }
+            fn strict_neg(self) -> Self { <$T>::strict_neg(self) }
 
             #[inline]
             fn strict_pow(self, exp: u32) -> Self {
-                <$t>::strict_pow(self, exp)
+                <$T>::strict_pow(self, exp)
             }
 
             #[inline]
             fn strict_shl(self, rhs: u32) -> Self {
-                <$t>::strict_shl(self, rhs)
+                <$T>::strict_shl(self, rhs)
             }
 
             #[inline]
             fn strict_shr(self, rhs: u32) -> Self {
-                <$t>::strict_shr(self, rhs)
+                <$T>::strict_shr(self, rhs)
             }
 
             #[inline]
             unsafe fn unchecked_add(self, rhs: Self) -> Self {
                 // SAFETY: forwarded; caller upholds 
-                // `<$t>::unchecked_add`'s contract.
-                unsafe { <$t>::unchecked_add(self, rhs) }
+                // `<$T>::unchecked_add`'s contract.
+                unsafe { <$T>::unchecked_add(self, rhs) }
             }
 
             #[inline]
             unsafe fn unchecked_sub(self, rhs: Self) -> Self {
                 // SAFETY: forwarded; caller upholds 
-                // `<$t>::unchecked_sub`'s contract.
-                unsafe { <$t>::unchecked_sub(self, rhs) }
+                // `<$T>::unchecked_sub`'s contract.
+                unsafe { <$T>::unchecked_sub(self, rhs) }
             }
 
             #[inline]
             unsafe fn unchecked_mul(self, rhs: Self) -> Self {
                 // SAFETY: forwarded; caller upholds 
-                // `<$t>::unchecked_mul`'s contract.
-                unsafe { <$t>::unchecked_mul(self, rhs) }
+                // `<$T>::unchecked_mul`'s contract.
+                unsafe { <$T>::unchecked_mul(self, rhs) }
             }
 
             #[inline]
             unsafe fn unchecked_shl(self, rhs: u32) -> Self {
                 // SAFETY: forwarded; caller upholds 
-                // `<$t>::unchecked_shl`'s contract.
-                unsafe { <$t>::unchecked_shl(self, rhs) }
+                // `<$T>::unchecked_shl`'s contract.
+                unsafe { <$T>::unchecked_shl(self, rhs) }
             }
 
             #[inline]
             unsafe fn unchecked_shr(self, rhs: u32) -> Self {
                 // SAFETY: forwarded; caller upholds
-                // `<$t>::unchecked_shr`'s contract.
-                unsafe { <$t>::unchecked_shr(self, rhs) }
+                // `<$T>::unchecked_shr`'s contract.
+                unsafe { <$T>::unchecked_shr(self, rhs) }
             }
 
             #[inline]
             fn wrapping_add(self, rhs: Self) -> Self {
-                <$t>::wrapping_add(self, rhs)
+                <$T>::wrapping_add(self, rhs)
             }
 
             #[inline]
             fn wrapping_sub(self, rhs: Self) -> Self {
-                <$t>::wrapping_sub(self, rhs)
+                <$T>::wrapping_sub(self, rhs)
             }
 
             #[inline]
             fn wrapping_mul(self, rhs: Self) -> Self {
-                <$t>::wrapping_mul(self, rhs)
+                <$T>::wrapping_mul(self, rhs)
             }
 
             #[inline]
             fn wrapping_div(self, rhs: Self) -> Self {
-                <$t>::wrapping_div(self, rhs)
+                <$T>::wrapping_div(self, rhs)
             }
 
             #[inline]
             fn wrapping_div_euclid(self, rhs: Self) -> Self {
-                <$t>::wrapping_div_euclid(self, rhs)
+                <$T>::wrapping_div_euclid(self, rhs)
             }
 
             #[inline]
             fn wrapping_rem(self, rhs: Self) -> Self {
-                <$t>::wrapping_rem(self, rhs)
+                <$T>::wrapping_rem(self, rhs)
             }
 
             #[inline]
             fn wrapping_rem_euclid(self, rhs: Self) -> Self {
-                <$t>::wrapping_rem_euclid(self, rhs)
+                <$T>::wrapping_rem_euclid(self, rhs)
             }
 
             #[inline]
-            fn wrapping_neg(self) -> Self { <$t>::wrapping_neg(self) }
+            fn wrapping_neg(self) -> Self { <$T>::wrapping_neg(self) }
 
             #[inline]
             fn wrapping_pow(self, exp: u32) -> Self {
-                <$t>::wrapping_pow(self, exp)
+                <$T>::wrapping_pow(self, exp)
             }
 
             #[inline]
             fn wrapping_shl(self, rhs: u32) -> Self {
-                <$t>::wrapping_shl(self, rhs)
+                <$T>::wrapping_shl(self, rhs)
             }
 
             #[inline]
             fn wrapping_shr(self, rhs: u32) -> Self {
-                <$t>::wrapping_shr(self, rhs)
+                <$T>::wrapping_shr(self, rhs)
             }
         }
     )*};
