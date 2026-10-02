@@ -7,89 +7,89 @@ use core::{
 };
 
 use super::{
-    num::Num
+    real::Real
 };
 
 // ── Macros ──────────────────────────────────────────────────────────────────
 macro_rules! impl_float {
-    ($($t:ty),* $(,)?) => {$(
-        impl Float for $t {
+    ($($T:ty),* $(,)?) => {$(
+        impl Float for $T {
             // ── Constants ───────────────────────────────────────────────────
-            const EPSILON: Self = <$t>::EPSILON;
+            const EPSILON: Self = <$T>::EPSILON;
 
-            const RADIANS_PER_DEGREE: Self = f64::consts::PI as $t / 180.0;
+            const RADIANS_PER_DEGREE: Self = f64::consts::PI as $T / 180.0;
 
             // ── Functions ───────────────────────────────────────────────────
             #[inline]
-            fn nan() -> Self { <$t>::NAN }
+            fn nan() -> Self { <$T>::NAN }
 
             #[inline]
-            fn infinity() -> Self { <$t>::INFINITY }
+            fn infinity() -> Self { <$T>::INFINITY }
 
             #[inline]
-            fn neg_infinity() -> Self { <$t>::NEG_INFINITY }
+            fn neg_infinity() -> Self { <$T>::NEG_INFINITY }
 
             #[inline]
             fn neg_zero() -> Self { -0.0 }
 
             #[inline]
-            fn min_value() -> Self { <$t>::MIN }
+            fn min_value() -> Self { <$T>::MIN }
 
             #[inline]
-            fn min_positive_value() -> Self { <$t>::MIN_POSITIVE }
+            fn min_positive_value() -> Self { <$T>::MIN_POSITIVE }
 
             #[inline]
-            fn max_value() -> Self { <$t>::MAX }
+            fn max_value() -> Self { <$T>::MAX }
 
             #[inline]
-            fn epsilon() -> Self { <$t>::EPSILON }
+            fn epsilon() -> Self { <$T>::EPSILON }
 
             // ── Methods ─────────────────────────────────────────────────────
             #[inline]
-            fn is_nan(self) -> bool { <$t>::is_nan(self) }
+            fn is_nan(self) -> bool { <$T>::is_nan(self) }
 
             #[inline]
-            fn is_infinite(self) -> bool { <$t>::is_infinite(self) }
+            fn is_infinite(self) -> bool { <$T>::is_infinite(self) }
 
             #[inline]
-            fn is_finite(self) -> bool { <$t>::is_finite(self) }
+            fn is_finite(self) -> bool { <$T>::is_finite(self) }
 
             #[inline]
-            fn is_normal(self) -> bool { <$t>::is_normal(self) }
+            fn is_normal(self) -> bool { <$T>::is_normal(self) }
 
             #[inline]
-            fn is_subnormal(self) -> bool { <$t>::is_subnormal(self) }
+            fn is_subnormal(self) -> bool { <$T>::is_subnormal(self) }
 
             #[inline]
-            fn classify(self) -> FpCategory { <$t>::classify(self) }
+            fn classify(self) -> FpCategory { <$T>::classify(self) }
 
             #[inline]
-            fn is_sign_positive(self) -> bool { <$t>::is_sign_positive(self) }
+            fn is_sign_positive(self) -> bool { <$T>::is_sign_positive(self) }
 
             #[inline]
-            fn is_sign_negative(self) -> bool { <$t>::is_sign_negative(self) }
+            fn is_sign_negative(self) -> bool { <$T>::is_sign_negative(self) }
 
             #[inline]
-            fn floor(self) -> Self { <$t>::floor(self) }
+            fn floor(self) -> Self { <$T>::floor(self) }
 
             #[inline]
-            fn ceil(self) -> Self { <$t>::ceil(self) }
+            fn ceil(self) -> Self { <$T>::ceil(self) }
 
             #[inline]
-            fn round(self) -> Self { <$t>::round(self) }
+            fn round(self) -> Self { <$T>::round(self) }
 
             #[inline]
-            fn trunc(self) -> Self { <$t>::trunc(self) }
+            fn trunc(self) -> Self { <$T>::trunc(self) }
 
             #[inline]
-            fn fract(self) -> Self { <$t>::fract(self) }
+            fn fract(self) -> Self { <$T>::fract(self) }
 
             #[inline]
-            fn abs(self) -> Self { <$t>::abs(self) }
+            fn abs(self) -> Self { <$T>::abs(self) }
 
             #[inline]
             fn abs_sub(self, other: Self) -> Self {
-                // `<$t>::abs_sub` is deprecated; this matches its semantics
+                // `<$T>::abs_sub` is deprecated; this matches its semantics
                 // (positive difference, NaN propagates).
                 if self <= other {
                     0.0
@@ -99,123 +99,123 @@ macro_rules! impl_float {
             }
 
             #[inline]
-            fn signum(self) -> Self { <$t>::signum(self) }
+            fn signum(self) -> Self { <$T>::signum(self) }
 
             #[inline]
             fn copysign(self, sign: Self) -> Self {
-                <$t>::copysign(self, sign)
+                <$T>::copysign(self, sign)
             }
 
             #[inline]
-            fn max(self, other: Self) -> Self { <$t>::max(self, other) }
+            fn max(self, other: Self) -> Self { <$T>::max(self, other) }
 
             #[inline]
-            fn min(self, other: Self) -> Self { <$t>::min(self, other) }
+            fn min(self, other: Self) -> Self { <$T>::min(self, other) }
 
             #[inline]
             fn clamp(self, min: Self, max: Self) -> Self {
-                <$t>::clamp(self, min, max)
+                <$T>::clamp(self, min, max)
             }
 
             #[inline]
             fn mul_add(self, a: Self, b: Self) -> Self {
-                <$t>::mul_add(self, a, b)
+                <$T>::mul_add(self, a, b)
             }
 
             #[inline]
-            fn recip(self) -> Self { <$t>::recip(self) }
+            fn recip(self) -> Self { <$T>::recip(self) }
 
             #[inline]
-            fn powi(self, n: i32) -> Self { <$t>::powi(self, n) }
+            fn powi(self, n: i32) -> Self { <$T>::powi(self, n) }
 
             #[inline]
-            fn powf(self, n: Self) -> Self { <$t>::powf(self, n) }
+            fn powf(self, n: Self) -> Self { <$T>::powf(self, n) }
 
             #[inline]
-            fn sqrt(self) -> Self { <$t>::sqrt(self) }
+            fn sqrt(self) -> Self { <$T>::sqrt(self) }
 
             #[inline]
-            fn cbrt(self) -> Self { <$t>::cbrt(self) }
+            fn cbrt(self) -> Self { <$T>::cbrt(self) }
 
             #[inline]
-            fn hypot(self, other: Self) -> Self { <$t>::hypot(self, other) }
+            fn hypot(self, other: Self) -> Self { <$T>::hypot(self, other) }
 
             #[inline]
-            fn exp(self) -> Self { <$t>::exp(self) }
+            fn exp(self) -> Self { <$T>::exp(self) }
 
             #[inline]
-            fn exp2(self) -> Self { <$t>::exp2(self) }
+            fn exp2(self) -> Self { <$T>::exp2(self) }
 
             #[inline]
-            fn exp_m1(self) -> Self { <$t>::exp_m1(self) }
+            fn exp_m1(self) -> Self { <$T>::exp_m1(self) }
 
             #[inline]
-            fn ln(self) -> Self { <$t>::ln(self) }
+            fn ln(self) -> Self { <$T>::ln(self) }
 
             #[inline]
-            fn ln_1p(self) -> Self { <$t>::ln_1p(self) }
+            fn ln_1p(self) -> Self { <$T>::ln_1p(self) }
 
             #[inline]
-            fn log(self, base: Self) -> Self { <$t>::log(self, base) }
+            fn log(self, base: Self) -> Self { <$T>::log(self, base) }
 
             #[inline]
-            fn log2(self) -> Self { <$t>::log2(self) }
+            fn log2(self) -> Self { <$T>::log2(self) }
 
             #[inline]
-            fn log10(self) -> Self { <$t>::log10(self) }
+            fn log10(self) -> Self { <$T>::log10(self) }
 
             #[inline]
-            fn sin(self) -> Self { <$t>::sin(self) }
+            fn sin(self) -> Self { <$T>::sin(self) }
 
             #[inline]
-            fn cos(self) -> Self { <$t>::cos(self) }
+            fn cos(self) -> Self { <$T>::cos(self) }
 
             #[inline]
-            fn tan(self) -> Self { <$t>::tan(self) }
+            fn tan(self) -> Self { <$T>::tan(self) }
 
             #[inline]
-            fn asin(self) -> Self { <$t>::asin(self) }
+            fn asin(self) -> Self { <$T>::asin(self) }
 
             #[inline]
-            fn acos(self) -> Self { <$t>::acos(self) }
+            fn acos(self) -> Self { <$T>::acos(self) }
 
             #[inline]
-            fn atan(self) -> Self { <$t>::atan(self) }
+            fn atan(self) -> Self { <$T>::atan(self) }
 
             #[inline]
-            fn atan2(self, other: Self) -> Self { <$t>::atan2(self, other) }
+            fn atan2(self, other: Self) -> Self { <$T>::atan2(self, other) }
 
             #[inline]
-            fn sin_cos(self) -> (Self, Self) { <$t>::sin_cos(self) }
+            fn sin_cos(self) -> (Self, Self) { <$T>::sin_cos(self) }
 
             #[inline]
-            fn to_degrees(self) -> Self { <$t>::to_degrees(self) }
+            fn to_degrees(self) -> Self { <$T>::to_degrees(self) }
 
             #[inline]
-            fn to_radians(self) -> Self { <$t>::to_radians(self) }
+            fn to_radians(self) -> Self { <$T>::to_radians(self) }
 
             #[inline]
-            fn sinh(self) -> Self { <$t>::sinh(self) }
+            fn sinh(self) -> Self { <$T>::sinh(self) }
 
             #[inline]
-            fn cosh(self) -> Self { <$t>::cosh(self) }
+            fn cosh(self) -> Self { <$T>::cosh(self) }
 
             #[inline]
-            fn tanh(self) -> Self { <$t>::tanh(self) }
+            fn tanh(self) -> Self { <$T>::tanh(self) }
 
             #[inline]
-            fn asinh(self) -> Self { <$t>::asinh(self) }
+            fn asinh(self) -> Self { <$T>::asinh(self) }
 
             #[inline]
-            fn acosh(self) -> Self { <$t>::acosh(self) }
+            fn acosh(self) -> Self { <$T>::acosh(self) }
 
-            #[inline] fn atanh(self) -> Self { <$t>::atanh(self) }
+            #[inline] fn atanh(self) -> Self { <$T>::atanh(self) }
 
             fn integer_decode(self) -> (u64, i16, i8) {
-                const TOTAL_BITS: u32 = (mem::size_of::<$t>() * 8) as u32;
-                const MAN_BITS: u32 = <$t>::MANTISSA_DIGITS - 1;
+                const TOTAL_BITS: u32 = (mem::size_of::<$T>() * 8) as u32;
+                const MAN_BITS: u32 = <$T>::MANTISSA_DIGITS - 1;
                 const EXP_BITS: u32 = TOTAL_BITS - 1 - MAN_BITS;
-                const BIAS: i16 = (<$t>::MAX_EXP - 1) as i16;
+                const BIAS: i16 = (<$T>::MAX_EXP - 1) as i16;
 
                 const MAN_MASK: u64 = (1u64 << MAN_BITS) - 1;
                 const EXP_MASK: u64 = (1u64 << EXP_BITS) - 1;
@@ -238,7 +238,7 @@ macro_rules! impl_float {
 
 // ── `trait Float` Definition ────────────────────────────────────────────────
 pub trait Float:
-    Num
+    Real
     + Copy
     + PartialOrd
     + Neg<Output = Self> {
