@@ -27,7 +27,7 @@ macro_rules! impl_num {
             const ONE: Self = 1;
         })*
 
-        // ── `Num for $F` Implementations ────────────────────────────────────
+        // ── `Num for $F` Implementation ─────────────────────────────────────
         $(impl Num for $F {
             const ZERO: Self = 0.0;
             const ONE: Self = 1.0;
