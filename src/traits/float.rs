@@ -15,10 +15,6 @@ macro_rules! impl_float {
     ($($t:ty),* $(,)?) => {$(
         impl Float for $t {
             // ── Constants ───────────────────────────────────────────────────
-            const MIN: Self = <$t>::MIN;
-
-            const MAX: Self = <$t>::MAX;
-
             const EPSILON: Self = <$t>::EPSILON;
 
             const RADIANS_PER_DEGREE: Self = f64::consts::PI as $t / 180.0;
@@ -247,10 +243,6 @@ pub trait Float:
     + PartialOrd
     + Neg<Output = Self> {
     // ── Constants ───────────────────────────────────────────────────────────
-    const MIN: Self;
-
-    const MAX: Self;
-
     const EPSILON: Self;
 
     /// `π / 180`, used by the default `to_degrees` / `to_radians`.
